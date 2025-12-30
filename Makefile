@@ -1,13 +1,13 @@
-naren: naren.c m.S
-	riscv64-unknown-elf-gcc -O0 -nostdlib -march=rv32i -mabi=ilp32 -Wl, -Tm.ld m.s naren.c -o main.elf
+naren: naren.c m.s m.ld
+	riscv64-unknown-elf-gcc -O0 -nostdlib -march=rv32i -mabi=ilp32 -Wl,-T,m.ld m.s naren.c -o main.elf
 	riscv64-unknown-elf-objcopy -O binary main.elf main.bin
 
 assembly: naren.c
-	riscv64-unknown-elf-gcc -O0 -nostdlib -march=rv32i -mabi=ilp32 -Wl, -Tm.ld naren.c -S
+	riscv64-unknown-elf-gcc -O0 -nostdlib -march=rv32i -mabi=ilp32 -Wl,-T,m.ld naren.c -S
 
 
 compile: m.s m.ld
-	riscv64-unknown-elf-gcc -O0 -ggdb -nostdlib -march=rv32i -mabi=ilp32 -Wl, -Tm.ld m.s -o main.elf
+	riscv64-unknown-elf-gcc -O0 -ggdb -nostdlib -march=rv32i -mabi=ilp32 -Wl,-T,m.ld m.s -o main.elf
 	riscv64-unknown-elf-objcopy -O binary main.elf main.bin
 
 printbinay: mian.bin
